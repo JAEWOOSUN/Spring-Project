@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+<!--    <sec:authentication-manager alias="authenticationManager">-->
+<!--    <sec:authentication-manager id="adminAuthManger">-->
+    <sec:authentication-manager>
+        <sec:authentication-provider user-service-ref="userService">
+            <sec:password-encoder ref="customPasswordEncoder"/>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <sec:authentication-manager id="loginTestAuthManger">
+        <sec:authentication-provider user-service-ref="loginTestUserDetailsService">
+
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <!-- This is where we configure Spring-Security -->
+
+    <sec:http pattern="/loginTest/**" use-expressions="true" authentication-manager-ref="loginTestAuthManger">
+        <sec:form-login login-page="/loginTest/signup" authentication-success-handler-ref="loginTestLoginHandler" authentication-failure-handler-ref="loginTestLoginFailureHandler"/>
+        <sec:logout logout-url="/loginTest/logout" delete-cookies="JSESSIONID"/>
+
+        <sec:intercept-url pattern="/loginTest/payment" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/loginTest/private" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/loginTest/admin" access="hasRole('ROLE_ADMIN')"/>
+    </sec:http>
+
+    <!-- Uses a database table to maintain a set of persistent login data -->
+    <bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <property name="createTableOnStartup" value="false" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+</beans>
