@@ -12,7 +12,7 @@ front-end :
 - https://www.w3schools.com/howto/howto_css_login_form.asp (login form)
 
 j_spring_security : 
-- https://to-dy.tistory.com/86 (전반적인 코드 구조 참조)
+- https://to-dy.tistory.com/86 (전반적인 j_spring_security 구조 참조)
 - https://velog.io/@sa833591/Spring-Security-4-Authentication-SecurityContextHolder%EC%9D%98-%EC%9D%B4%ED%95%B4 (SecurityContextHolder )
 
 
