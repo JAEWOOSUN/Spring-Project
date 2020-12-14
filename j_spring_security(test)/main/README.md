@@ -1,4 +1,4 @@
-# j_spring_security(test)
+# j_spring_security (Login Test)
 
 ## 1. 시스템 구성도 (단계별)
 ## 2. 실행 사진
