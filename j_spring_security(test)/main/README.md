@@ -4,6 +4,8 @@
 
 front-end : https://startbootstrap.com/theme/sb-admin-2
 
+j_spring_security : https://to-dy.tistory.com/86
+
 1. 시스템 구성도 (단계별)
 2. 실행 사진
 3. 특징
