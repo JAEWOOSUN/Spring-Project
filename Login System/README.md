@@ -2,7 +2,6 @@
 
 Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
 <img src="https://drive.google.com/uc?export=view&id=1SQ1sy3QB14rOaZdL75pvv0LoJ14fdhNQ" width="70%">
-![img](https://drive.google.com/uc?export=view&id=1SQ1sy3QB14rOaZdL75pvv0LoJ14fdhNQ)
 ## 1. 특징
 
 ### (1) j_spring-security_check
@@ -10,10 +9,12 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<br/>
 <img src="https://drive.google.com/uc?export=view&id=1U-FCLlwgNhvbFWQygw8VA56-W8wGKEZC" width="70%"><br/><br/>
 <img src="https://drive.google.com/uc?export=view&id=ErH58_JP4ILiXpcKAeB-wuVwcgEgJzWh" width="70%"><br/>
+#### **[user and user denied]**<br/>
 [![user and user denied](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY)
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
-<img src="loginResult_admin" width="50%">
-<iframe src="https://youtu.be/i-T_k176k2E"></iframe>
+<img src="https://drive.google.com/uc?export=view&id=1iTi2YMESpXjoVsB8MciLhPLXrI-QEx1N" width="70%">
+#### **[Google User 영상]**<br/>
+[![user and user denied](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
 - Bcrypt를 사용한 암호화 사용
  <img src="database2" width="50%">
 
