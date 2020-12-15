@@ -18,13 +18,16 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 - <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
 
 ### (2) Google OAuth
-- 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin_google.png" width="50%"><br/><br/>
-- Google Development에 등록 후 apikey와 apiSecret 받은 후 사용<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google api.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google_token.png" width="50%"><br/><br/>
+- 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin_google.png" width="50%"><br/><br/>
+- Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google api.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google_token.png" width="50%"><br/><br/>
 - **[Google User 영상 (▼ youtube video)]**<br/>
 [![Google User2](https://img.youtube.com/vi/gIIGy0rvpjg/0.jpg)](https://youtu.be/gIIGy0rvpjg)
  
 ## 2. System Configuration Diagram
-- Login_system_architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/Login_system_architecture.png" width="100%">
+- Login_system_architecture
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/Login_system_architecture.png" width="100%">
 - 구조
 - <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/hierical sturcture.png" height="100%">
 ## 3. Key Code Description
