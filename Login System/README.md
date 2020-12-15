@@ -1,7 +1,7 @@
 # Login System (j_spring_security + Google OAuth)
 
 Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
-<img src="signin" width="50%">
+![Google User](https://drive.google.com/uc?export=view&id=1SQ1sy3QB14rOaZdL75pvv0LoJ14fdhNQ){: width="50%"}
 
 ## 1. 특징
 
@@ -19,7 +19,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-![Google User](https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e)
+![Google User](https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e){: width="50%"}
 
 - [Google User 영상]<br/>
 [![Google User2](https://img.youtube.com/vi/gIIGy0rvpjg/0.jpg)](https://youtu.be/gIIGy0rvpjg)
