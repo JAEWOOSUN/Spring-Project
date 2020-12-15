@@ -72,8 +72,6 @@ UserDetails를 implements해 사용하기 때문에 getAuthorities()를 override
 ### (3) java/service/loginTest/LoginTestService.java
 
 
-    //참조 : https://gdtbgl93.tistory.com/182
-    //RestTemplate 설명 : https://sjh836.tistory.com/141
     RestTemplate restTemplate = new RestTemplate();
 
     //Google Request Domain에다가 param들을 추가한다.
@@ -124,7 +122,7 @@ Google의 OAuth를 사용하기 위해 Token을 받아온 후, token info를 받
  
  
 
-## Reference
+## 4. Reference
 
 front-end : 
 - https://startbootstrap.com/theme/sb-admin-2 (admin form)
@@ -135,4 +133,7 @@ j_spring_security :
 - https://velog.io/@sa833591/Spring-Security-4-Authentication-SecurityContextHolder%EC%9D%98-%EC%9D%B4%ED%95%B4 (SecurityContextHolder )
 
 
- 
+Google OAtuth : 
+
+- https://gdtbgl93.tistory.com/182 (전반적인 Google OAuth 구조 참조)
+- https://sjh836.tistory.com/141 (RestTemplate 설명) 
