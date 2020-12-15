@@ -59,12 +59,12 @@ intercept-url에서는 여러가지 access가 있으며, isAuthenticated(), perm
 ### (2) java/domain/loginTest/loginTestUserDetails
 
 
-   @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        auth.add(new SimpleGrantedAuthority(AUTHORITY));
-        return auth;
-    }
+    @Override
+     public Collection<? extends GrantedAuthority> getAuthorities() {
+         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+         auth.add(new SimpleGrantedAuthority(AUTHORITY));
+         return auth;
+     }
  
  
 UserDetails를 implements해 사용하기 때문에 getAuthorities()를 override해준다. ArrayList에는 권한 목록이 들어가 있고 목록을 return해준다.
@@ -72,51 +72,51 @@ UserDetails를 implements해 사용하기 때문에 getAuthorities()를 override
 ### (3) java/service/loginTest/LoginTestService.java
 
 
-           //참조 : https://gdtbgl93.tistory.com/182
-            //RestTemplate 설명 : https://sjh836.tistory.com/141
-            RestTemplate restTemplate = new RestTemplate();
+    //참조 : https://gdtbgl93.tistory.com/182
+    //RestTemplate 설명 : https://sjh836.tistory.com/141
+    RestTemplate restTemplate = new RestTemplate();
 
-            //Google Request Domain에다가 param들을 추가한다.
-            GoogleOAuthRequest googleOAuthRequestParam = new GoogleOAuthRequest();
-            googleOAuthRequestParam.setClientId(googleAPIkey);
-            googleOAuthRequestParam.setClientSecret(googleAPIsecret);
-            googleOAuthRequestParam.setCode(code);
-            googleOAuthRequestParam.setRedirectUri("http://localhost:8080/loginTest/google-redirect");
-            googleOAuthRequestParam.setGrantType("authorization_code");
+    //Google Request Domain에다가 param들을 추가한다.
+    GoogleOAuthRequest googleOAuthRequestParam = new GoogleOAuthRequest();
+    googleOAuthRequestParam.setClientId(googleAPIkey);
+    googleOAuthRequestParam.setClientSecret(googleAPIsecret);
+    googleOAuthRequestParam.setCode(code);
+    googleOAuthRequestParam.setRedirectUri("http://localhost:8080/loginTest/google-redirect");
+    googleOAuthRequestParam.setGrantType("authorization_code");
 
-            //JWT TOKEN을 받아온다.
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://accounts.google.com/o/oauth2/token", googleOAuthRequestParam, String.class);
-            GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {});
-            String jwtToken = result.getIdToken();
-            System.out.println("jwt token : "+jwtToken);
+    //JWT TOKEN을 받아온다.
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://accounts.google.com/o/oauth2/token", googleOAuthRequestParam, String.class);
+    GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {});
+    String jwtToken = result.getIdToken();
+    System.out.println("jwt token : "+jwtToken);
 
-            //받아온 TOKEN의 INFO를 얻기위해 해당 url로 정보를 보낸다.
-            String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
-                    .queryParam("id_token", jwtToken).toUriString();
+    //받아온 TOKEN의 INFO를 얻기위해 해당 url로 정보를 보낸다.
+    String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
+            .queryParam("id_token", jwtToken).toUriString();
 
-            String resultJson = restTemplate.getForObject(requestUrl, String.class);
+    String resultJson = restTemplate.getForObject(requestUrl, String.class);
 
-            userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>() {});
+    userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>() {});
 
 
 Google의 OAuth를 사용하기 위해 Token을 받아온 후, token info를 받아온다.
 
 
-        loginTestUserDetails userTemp = new loginTestUserDetails();
+    loginTestUserDetails userTemp = new loginTestUserDetails();
 
-        userTemp.setID(userInfo.get("email"));
-        userTemp.setNAME(userInfo.get("email"));
-        userTemp.setPW(userInfo.get("sub"));
-        userTemp.setAUTHORITY("ROLE_USER");
+    userTemp.setID(userInfo.get("email"));
+    userTemp.setNAME(userInfo.get("email"));
+    userTemp.setPW(userInfo.get("sub"));
+    userTemp.setAUTHORITY("ROLE_USER");
 
-        Authentication requestAUTH = new UsernamePasswordAuthenticationToken(userTemp, null);
-        Authentication resultAUTH = am.authenticate(requestAUTH);
+    Authentication requestAUTH = new UsernamePasswordAuthenticationToken(userTemp, null);
+    Authentication resultAUTH = am.authenticate(requestAUTH);
 
-        //Save Google jwt information in j_spring_security authentication context
-        SecurityContextHolder.getContext().setAuthentication(resultAUTH);
+    //Save Google jwt information in j_spring_security authentication context
+    SecurityContextHolder.getContext().setAuthentication(resultAUTH);
         
         
         
