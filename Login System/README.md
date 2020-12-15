@@ -9,7 +9,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<br/>
 <img src="https://drive.google.com/uc?export=view&id=1U-FCLlwgNhvbFWQygw8VA56-W8wGKEZC" width="70%"><br/><br/>
 <img src="https://drive.google.com/uc?export=view&id=ErH58_JP4ILiXpcKAeB-wuVwcgEgJzWh" width="70%">
-<iframe youtube user계정+admin denied>
+[![Google User2](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY)
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
 <img src="loginResult_admin" width="50%">
 <iframe src="https://youtu.be/i-T_k176k2E"></iframe>
