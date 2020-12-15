@@ -25,7 +25,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
  
 ## 2. System Configuration Diagram
 - Login_system_architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/Login_system_architecture.png" width="100%">
-
+- 구조<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/hierical sturcture.png" height="100%">
 ## 3. Key Code Description
 
 ### (1) resources/common/security.xml
