@@ -7,10 +7,10 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 ### (1) j_spring-security_check
 - UserDetails, UserDetailsService interface 사용
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<br/>
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_user.png" width="70%"><br/>
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_user.png" width="70%">
 - **[user and user denied]**<br/>
 [![user and user denied](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY)
-- /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
+- /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="70%">
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="70%">
 - **[Google User 영상]**<br/>
