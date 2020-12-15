@@ -31,13 +31,12 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 
 ### (1) resources/common/security.xml
 
-`
-<sec:authentication-manager id="loginTestAuthManger">
+    <sec:authentication-manager id="loginTestAuthManger">
         <sec:authentication-provider user-service-ref="loginTestUserDetailsService">
 
         </sec:authentication-provider>
-</sec:authentication-manager>
-`
+    </sec:authentication-manager>
+
 UserDetails, UserDetailsService interface 사용
  <br/>
 UserDetailsService 인터페이스는 DB에서 유저 정보를 가져오는 역할을 한다. AuthenticationProvider로 유저 정보를 
