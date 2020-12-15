@@ -12,11 +12,6 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 <iframe youtube user계정+admin denied>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
 <img src="loginResult_admin" width="50%">
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/MUQfKFzIOeU" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
 <iframe src="https://youtu.be/i-T_k176k2E"></iframe>
 - Bcrypt를 사용한 암호화 사용
  <img src="database2" width="50%">
@@ -24,8 +19,7 @@ allowfullscreen></iframe>
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-![img](https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e)
-<iframe youtube google_user>
+[![Google User](https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e)](https://youtu.be/gIIGy0rvpjg)
  
 ## 2. System Configuration Diagram
 
