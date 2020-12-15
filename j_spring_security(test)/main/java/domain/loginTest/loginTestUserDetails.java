@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import scala.xml.Null;
 import solis.pl.domain.constant.Role;
 import solis.pl.domain.user.Authority;
+import solis.pl.service.user.CustomPasswordEncoder;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,12 +23,20 @@ public class loginTestUserDetails implements UserDetails {
     private boolean ENABLED;
     private String NAME;
 
+    @Inject
+    private CustomPasswordEncoder passwordEncoder;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
         auth.add(new SimpleGrantedAuthority(AUTHORITY));
         return auth;
     }
+
+    public void setID(String ID) { this.ID = ID; }
+
+    public void setPW(String PW) { this.PW = PW; }
 
     @Override
     public String getPassword() {
@@ -66,6 +76,7 @@ public class loginTestUserDetails implements UserDetails {
         this.NAME = name;
     }
 
+    //현재 권한에 대해 출력
     public static loginTestUserDetails current(){
         try{
             return (loginTestUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -87,5 +98,9 @@ public class loginTestUserDetails implements UserDetails {
 
     public void setAUTHORITY(String AUTHORITY) {
         this.AUTHORITY = AUTHORITY;
+    }
+
+    public boolean matches(String pw){
+        return passwordEncoder.matches(pw, this.PW);
     }
 }
