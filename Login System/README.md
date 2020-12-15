@@ -12,6 +12,11 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 <iframe youtube user계정+admin denied>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
 <img src="loginResult_admin" width="50%">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/MUQfKFzIOeU" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 <iframe src="https://youtu.be/i-T_k176k2E"></iframe>
 - Bcrypt를 사용한 암호화 사용
  <img src="database2" width="50%">
