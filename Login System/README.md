@@ -1,6 +1,6 @@
-# Login System (j_spring_security + Google Oauth)
+# Login System (j_spring_security + Google OAuth)
 
-Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google Oauth를 사용하여 Login System을 구현합니다.<br/>
+Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
 <img src="signin" width="50%">
 
 ## 1. 특징
@@ -16,7 +16,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 - Bcrypt를 사용한 암호화 사용
  <img src="database2" width="50%">
 
-### (2) Google Oauth
+### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
 <img src="loginResult_google" width="50%">
@@ -67,10 +67,62 @@ intercept-url에서는 여러가지 access가 있으며, isAuthenticated(), perm
     }
  
  
-UserDetails를 implements해
-UserDetails, UserDetailsService interface 사용
- <br/>
-UserDetailsService 인터페이스는 DB에서 유저 정보를 가져오는 역할을 한다. AuthenticationProvider로 유저 정보를 
+UserDetails를 implements해 사용하기 때문에 getAuthorities()를 override해준다. ArrayList에는 권한 목록이 들어가 있고 목록을 return해준다.
+
+### (3) java/service/loginTest/LoginTestService.java
+
+
+           //참조 : https://gdtbgl93.tistory.com/182
+            //RestTemplate 설명 : https://sjh836.tistory.com/141
+            RestTemplate restTemplate = new RestTemplate();
+
+            //Google Request Domain에다가 param들을 추가한다.
+            GoogleOAuthRequest googleOAuthRequestParam = new GoogleOAuthRequest();
+            googleOAuthRequestParam.setClientId(googleAPIkey);
+            googleOAuthRequestParam.setClientSecret(googleAPIsecret);
+            googleOAuthRequestParam.setCode(code);
+            googleOAuthRequestParam.setRedirectUri("http://localhost:8080/loginTest/google-redirect");
+            googleOAuthRequestParam.setGrantType("authorization_code");
+
+            //JWT TOKEN을 받아온다.
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://accounts.google.com/o/oauth2/token", googleOAuthRequestParam, String.class);
+            GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {});
+            String jwtToken = result.getIdToken();
+            System.out.println("jwt token : "+jwtToken);
+
+            //받아온 TOKEN의 INFO를 얻기위해 해당 url로 정보를 보낸다.
+            String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
+                    .queryParam("id_token", jwtToken).toUriString();
+
+            String resultJson = restTemplate.getForObject(requestUrl, String.class);
+
+            userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>() {});
+
+
+Google의 OAuth를 사용하기 위해 Token을 받아온 후, token info를 받아온다.
+
+
+        loginTestUserDetails userTemp = new loginTestUserDetails();
+
+        userTemp.setID(userInfo.get("email"));
+        userTemp.setNAME(userInfo.get("email"));
+        userTemp.setPW(userInfo.get("sub"));
+        userTemp.setAUTHORITY("ROLE_USER");
+
+        Authentication requestAUTH = new UsernamePasswordAuthenticationToken(userTemp, null);
+        Authentication resultAUTH = am.authenticate(requestAUTH);
+
+        //Save Google jwt information in j_spring_security authentication context
+        SecurityContextHolder.getContext().setAuthentication(resultAUTH);
+        
+        
+        
+ loginTestUserDetails에 정보를 저장한 후 SecurityContextHolder에 context를 저장해서 로그인 권한을 사용할 수 있게 한다.
+ 
+ 
 
 ## Reference
 
