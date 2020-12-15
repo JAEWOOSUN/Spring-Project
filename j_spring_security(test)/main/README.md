@@ -4,6 +4,7 @@
 ## 2. 실행 사진
 ## 3. 특징
  - loginResult, admin에서 authority가 없으면 -> signin으로 직행
+ - Bcrypt를 사용한 복호화
 
 ## 출처
 
