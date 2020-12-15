@@ -31,12 +31,43 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 
 ### (1) resources/common/security.xml
 
+j_spring_security 전체 Control를 담당하고 있다.
+
     <sec:authentication-manager id="loginTestAuthManger">
         <sec:authentication-provider user-service-ref="loginTestUserDetailsService">
 
         </sec:authentication-provider>
     </sec:authentication-manager>
 
+user-service-ref는 custom한 loginTestUserDetailsService를 사용한다.
+
+    <sec:http pattern="/loginTest/**" use-expressions="true" authentication-manager-ref="loginTestAuthManger">
+        <sec:form-login login-page="/loginTest/signin" authentication-success-handler-ref="loginTestLoginHandler" authentication-failure-handler-ref="loginTestLoginFailureHandler"/>
+        <sec:logout logout-url="/loginTest/signout" delete-cookies="JSESSIONID"/>
+
+        <sec:intercept-url pattern="/loginTest/payment" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/loginTest/registration-form" access="permitAll"/>
+        <sec:intercept-url pattern="/loginTest/loginResult" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/loginTest/admin" access="hasRole('ROLE_ADMIN')"/>
+    </sec:http>
+   
+   
+http pattern은 /loginTest/** 이후에 모두 Autority check가 필요하며 이부분을 통해 login과 logout 거점을 설정할 수 있다. login이 success할 경우 loginTestLoginHandler를 거치며, failure할 경우 loginTestLoginFailureHandler를 거쳐 j_session이 삭제된다.
+
+intercept-url에서는 여러가지 access가 있으며, isAuthenticated(), permitAll, 특정 ROLE만 출입 가능하게 만들 수 있다.
+
+### (2) java/domain/loginTest/loginTestUserDetails
+
+
+   @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        auth.add(new SimpleGrantedAuthority(AUTHORITY));
+        return auth;
+    }
+ 
+ 
+UserDetails를 implements해
 UserDetails, UserDetailsService interface 사용
  <br/>
 UserDetailsService 인터페이스는 DB에서 유저 정보를 가져오는 역할을 한다. AuthenticationProvider로 유저 정보를 
