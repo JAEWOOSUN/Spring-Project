@@ -19,7 +19,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-<img src="https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e" width="50%">
+![img](https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e)
 <iframe youtube google_user>
  
 ## 2. System Configuration Diagram
