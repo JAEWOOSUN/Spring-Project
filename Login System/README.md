@@ -14,7 +14,8 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 
 - **[Google User 영상 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
-- Bcrypt를 사용한 암호화 사용<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="80%">
+- Bcrypt를 사용한 암호화 사용
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="80%">
 
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
