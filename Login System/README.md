@@ -7,7 +7,8 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 ### (1) j_spring-security_check
 - UserDetails, UserDetailsService interface 사용
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<br/>
-<img src="loginResult_user" width="50%">
+<img src="https://drive.google.com/uc?export=view&id=1U-FCLlwgNhvbFWQygw8VA56-W8wGKEZC" width="70%">
+<img src="https://drive.google.com/uc?export=view&id=ErH58_JP4ILiXpcKAeB-wuVwcgEgJzWh" width="70%">
 <iframe youtube user계정+admin denied>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<br/>
 <img src="loginResult_admin" width="50%">
@@ -18,7 +19,7 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-<img src="https://drive.google.com/uc?export=view&id=1L2mocPKihD_uOosjHwqoiPh5oD3j8Z2e" width="70%">
+<img src="" width="70%">
 
 - [Google User 영상]<br/>
 [![Google User2](https://img.youtube.com/vi/gIIGy0rvpjg/0.jpg)](https://youtu.be/gIIGy0rvpjg)
