@@ -1,6 +1,12 @@
 # Prize Lottery Service (using Zoom API and Excel)
 
-Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
+코로나로 인해 여러 학회들이 온라인 학회를 개최했습니다.<br/>
+따라서 학회 폐회식의 묘미인 '경품 추천'을 하지못하는 학회들이 많아지게 되었습니다.<br/>
+Prize Lottery Service는 온라인에서도 경품추천을 재밌게 할 수 있게 만드며, 여러 편리한 기능들을 통해 쉽게 사용할 수 있습니다.<br/> 
+
+특히, Zoom을 사용해서 논문을 발표하는 학회들이 많아졌고, 많은 학회 회원들은 Zoom을 사용해서 온라인학회를 참여하게 됩니다.<br/>
+Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zoom에 참여한 참가자들을 '경품 추천' 서비스에 참석할 수 있게 합니다. <br/>
+
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin.png" width="100%">
 ## 1. 특징
 
