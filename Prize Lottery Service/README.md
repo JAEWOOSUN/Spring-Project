@@ -1,4 +1,4 @@
-# Login System (j_spring_security_check + Google OAuth)
+# Prize Lottery Service (using Zoom API and Excel)
 
 Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin.png" width="100%">
