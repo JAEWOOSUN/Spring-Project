@@ -14,12 +14,12 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 - UserDetails, UserDetailsService interface 사용
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_user.png" width="50%">
 
-- **[user and user denied (▼ youtube video)]**<br/>
-[![user and user denied](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY) <br/>
+- **[Prize Lottery play 영상 (▼ youtube video)]**<br/>
+[![user and user denied](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="50%"> <br/>
 
-- **[Google User 영상 (▼ youtube video)]**<br/>
-[![user and user denied](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
+- **[Prize Exclude 기능 (▼ youtube video)]**<br/>
+[![user and user denied](https://img.youtube.com/vi/tSZepg_wtTY/0.jpg)](https://youtu.be/tSZepg_wtTY)
 - Bcrypt를 사용한 암호화 사용
 - <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
 
