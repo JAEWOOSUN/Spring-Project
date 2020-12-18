@@ -135,15 +135,7 @@ Google의 OAuth를 사용하기 위해 Token을 받아온 후, token info를 받
 ## 4. Reference
 
 front-end : 
-- https://startbootstrap.com/theme/sb-admin-2 (admin form)
-- https://www.w3schools.com/howto/howto_css_login_form.asp (login form)
+- https://greensock.com/gsap/ (animation - gsap)
 
-j_spring_security : 
-- https://to-dy.tistory.com/86 (전반적인 j_spring_security 구조 참조)
-- https://velog.io/@sa833591/Spring-Security-4-Authentication-SecurityContextHolder%EC%9D%98-%EC%9D%B4%ED%95%B4 (SecurityContextHolder )
-
-
-Google OAtuth : 
-
-- https://gdtbgl93.tistory.com/182 (전반적인 Google OAuth 구조 참조)
-- https://sjh836.tistory.com/141 (RestTemplate 설명) 
+zoom api : 
+- https://marketplace.zoom.us/docs/api-reference/zoom-api/webinars/webinarregistrants (Add Zoom Registrants)
