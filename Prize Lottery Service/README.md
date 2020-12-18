@@ -1,13 +1,13 @@
 # Prize Lottery Service (using Zoom API and Excel)
 
 ***코로나***로 인해 여러 학회들이 온라인 학회를 개최하게 되었습니다.<br/>
-하지만 이로인해 학회폐회식의 묘미인 '경품 추천'을 하지못하는 학회들이 많아지게 되었습니다.<br/>
-Prize Lottery Service는 Conference 홈페이지에 이식되어 온라인에서도 경품추천을 재밌게 즐길수 있으며, 여러 기능들을 제공하여 사용자가 Service를 쉽게 이용할 수 있습니다.<br/> 
+하지만 온라인이라는 한정된 공간으로 인해 행사 많은 부분에 제약이 걸리게 되었고 특히, 폐회식에서 '경품 추천'을 하지못하는 학회들이 많아지게 되었습니다.<br/>
+Prize Lottery Service는 Online Conference 홈페이지에 이식되어 온라인에서도 경품추천을 재밌게 즐길수 있으며, 여러 기능들을 통해 사용자가 Service를 쉽게 이용할 수 있습니다.<br/> 
 
-특히, Zoom을 사용해서 논문을 발표하는 학회들이 많아졌고, 많은 학회 회원들은 Zoom을 사용해서 온라인학회를 참여하게 됩니다.<br/>
+주목할점은 Zoom을 사용해서 논문을 발표하는 학회들이 많아졌고, 많은 학회 회원들은 Zoom을 통해 온라인학회를 참여하게 되었다는 것입니다.<br/>
 Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zoom에 참여한 참가자들을 '경품 추천' 서비스에 참석할 수 있게 합니다. <br/>
 
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin.png" width="100%">
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/main.png" width="100%">
 ## 1. 특징
 
 ### (1) j_spring-security_check
