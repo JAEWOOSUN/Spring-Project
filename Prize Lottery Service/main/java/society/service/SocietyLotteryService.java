@@ -62,7 +62,7 @@ public class SocietyLotteryService {
     private String bucket;
 
     private String zoomAPIBaseURL = "https://api.zoom.us/v2";
-    private String jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IkRMRGxYdGpGUVRPQ3pqenFhSWpMdUEiLCJleHAiOjE3MDIxOTU2MjAsImlhdCI6MTYwNjk4Mjg4NH0.KfQUrOe9tgOEk4IeMYA1nUk_BqN3IvdJ6Z8JKmfNlNg";
+    private String jwtToken = "%{Zoom_JWT}";
 
     int timeout=3;
     RequestConfig config = RequestConfig.custom()
