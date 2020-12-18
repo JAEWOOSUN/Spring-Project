@@ -20,6 +20,11 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 - **[Prize Exclude 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/tSZepg_wtTY/0.jpg)](https://youtu.be/tSZepg_wtTY)
+
+- **[Setting Excel 기능 (▼ youtube video)]**<br/>
+[![user and user denied](https://img.youtube.com/vi/07YB6ioiww0/0.jpg)](https://youtu.be/07YB6ioiww0)
+- **[Setting Zoom 기능 (▼ youtube video)]**<br/>
+[![user and user denied](https://img.youtube.com/vi/E5up_3CXFvw/0.jpg)](https://youtu.be/E5up_3CXFvw)
 - Bcrypt를 사용한 암호화 사용
 - <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
 
