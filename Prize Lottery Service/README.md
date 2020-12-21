@@ -167,88 +167,242 @@ Service부문에서 처리해야했지만 처리 속도로 인해 Controller에 
         }
         }
 
-### (2) java/society/controller/conference/soConfConferencePrizeLotteryController.java
+### (2) java/society/service/SocietyLotteryService.java
 
-    <sec:http pattern="/loginTest/**" use-expressions="true" authentication-manager-ref="loginTestAuthManger">
-        <sec:form-login login-page="/loginTest/signin" authentication-success-handler-ref="loginTestLoginHandler" authentication-failure-handler-ref="loginTestLoginFailureHandler"/>
-        <sec:logout logout-url="/loginTest/signout" delete-cookies="JSESSIONID"/>
+- JWT를 사용한 Host계정의 Zoom Room을 가지고 오는 함수<br/>
+Zoom Room을 가지고 오는 api는 get방식을 사용하므로 HttpGet을 사용해서 Request한다.<br/>
+response의 statusCode가 200일 때 JSONArray로 Zoom Room들의 Info를 가지고 온다.
 
-        <sec:intercept-url pattern="/loginTest/payment" access="isAuthenticated()"/>
-        <sec:intercept-url pattern="/loginTest/registration-form" access="permitAll"/>
-        <sec:intercept-url pattern="/loginTest/loginResult" access="isAuthenticated()"/>
-        <sec:intercept-url pattern="/loginTest/admin" access="hasRole('ROLE_ADMIN')"/>
-    </sec:http>
-   
-   
-http pattern은 /loginTest/** 이후에 모두 Autority check가 필요하며 이부분을 통해 login과 logout 거점을 설정할 수 있다. login이 success할 경우 loginTestLoginHandler를 거치며, failure할 경우 loginTestLoginFailureHandler를 거쳐 j_session이 삭제된다.
+        public Object getZoomRoomList(String userId){
+        //get zoom Room list and 해당학회의 zoom 등록
 
-intercept-url에서는 여러가지 access가 있으며, isAuthenticated(), permitAll, 특정 ROLE만 출입 가능하게 만들 수 있다.
+        try{
+            String url = zoomAPIBaseURL+"/users/"+userId+"/webinars?page_size=300";
 
-### (2) java/domain/loginTest/loginTestUserDetails
+            HttpContext context = new BasicHttpContext();
+            HttpGet getRequest = new HttpGet(url);
+
+            getRequest.setHeader("authorization",  "Bearer "+jwtToken);
+            getRequest.setHeader("content-type", "application/json");
+
+            HttpResponse response = client.execute(getRequest, context);
+
+            if (response.getStatusLine().getStatusCode() == 200) {
+
+                ResponseHandler<String> handler = new BasicResponseHandler();
+                String body = handler.handleResponse(response);
+
+                JSONParser parser = new JSONParser();
+                Object bodyParser = parser.parse(body);
+                JSONObject jsonObject = (JSONObject) bodyParser;
+
+                JSONArray webinars = (JSONArray) jsonObject.get("webinars");
+
+                System.out.println(webinars);
+                return (Object) webinars;
+            }else{
+                client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+        }
+
+- JWT를 사용한 Host계정의 Zoom Registrants를 가지고 오는 함수<br/>
+Zoom Id가 매개변수로 필요하다.
+
+        public Object getZoomRegistrantsList(String zoomId) throws UnsupportedOperationException{
+        try {
+            System.out.println(zoomId);
+            String url = zoomAPIBaseURL+"/webinars/"+zoomId+"/registrants?page_size=300";
+            HttpContext context = new BasicHttpContext();
+            HttpGet getRequest = new HttpGet(url);
+
+            getRequest.setHeader("authorization",  "Bearer "+jwtToken);
+            getRequest.setHeader("content-type", "application/json");
+
+            HttpResponse response = client.execute(getRequest, context);
+
+            if (response.getStatusLine().getStatusCode() == 200) {
+
+                ResponseHandler<String> handler = new BasicResponseHandler();
+                String body = handler.handleResponse(response);
+
+                JSONParser parser = new JSONParser();
+                Object bodyParser = parser.parse(body);
+                JSONObject jsonObject = (JSONObject) bodyParser;
+
+                JSONArray registrants = (JSONArray) jsonObject.get("registrants");
+
+                return (Object) registrants;
+            } else {
+                client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+        }
 
 
-    @Override
-     public Collection<? extends GrantedAuthority> getAuthorities() {
-         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-         auth.add(new SimpleGrantedAuthority(AUTHORITY));
-         return auth;
-     }
+- 사용자가 선택한 Zoom Room의 Registrants를 insert하기 위한 함수<br/>
+ZoomRoom의 ID List를 받아서 각각의 정보들을 DB에 삽입한다.
+
+        public boolean insertZoomRegistrants(String zoomRoomList, int conf_id){
+
+        try{
+            JSONParser parser = new JSONParser();
+            Object zoomRoomListObj = parser.parse(zoomRoomList);
+            JSONArray zoomRoomListjsonArray = (JSONArray) zoomRoomListObj;
+            System.out.println(zoomRoomListjsonArray);
+
+            for(Object roomInfoObj : zoomRoomListjsonArray){
+                JSONObject roomInfo = (JSONObject) roomInfoObj;
+
+                String roomNum = (String) roomInfo.get("num");
+
+                JSONArray zoomRegistrants = (JSONArray) getZoomRegistrantsList(roomNum);
+
+                for(Object registrantsInfoObj : zoomRegistrants){
+
+                    JSONObject registrantsInfo = (JSONObject) registrantsInfoObj;
+
+                    String firstName = registrantsInfo.get("first_name") != null ? (String) registrantsInfo.get("first_name") : "";
+                    String lastName =  registrantsInfo.get("last_name") != null ? (String) registrantsInfo.get("last_name") : "";
+                    String email = (String) registrantsInfo.get("email");
+                    String phone = (String) registrantsInfo.get("phone");
+
+                    SoConfTempMember member = soConfTempMemberMapper.findByConfIdAndEmail(conf_id, email);
+                    if(member == null){
+                        member = new SoConfTempMember();
+                        member.setConfId(conf_id);
+                        member.setName(firstName+lastName);
+                        member.setEmail(email);
+                        member.setPassword("0000");
+                        member.setPhone(phone);
+                        soConfTempMemberMapper.insert(member);
+                    }
+                    else{
+                        member.setConfId(conf_id);
+                        member.setName(firstName+lastName);
+                        member.setEmail(email);
+                        member.setPhone(phone);
+                        soConfTempMemberMapper.update(member);
+                    }
+                }
+            }
+
+            return true;
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+        }
+
+
+### (3) webapp/WEB-INF/views/society/conference/prizeLottery.jsp
+
+- prize lottery의 참석자 목록 버튼을 클릭하면 나오는 table 목록<br/>
+/table로 ajax를 보내서 registrants list를 가지고 온다.<br/>
+만약 prize exclude를 Yes, No로 check하고 confirm을 누르면 다시 한번, ajax로 보내서 prize_exclude 값을 갱신한다.
+
+        $('.registrants_list').click(function(){
+
+        var table_head = '<table class="table">\n'
+            + '<thead>\n'
+            + '<tr>\n'
+            + '<th scope="col">#</th>\n'
+            + '<th scope="col">Name</th>\n'
+            + '<th scope="col">Email</th>\n'
+            + '<th scope="col">Phone Number</th>\n'
+            + '<th scope="col"><span style="color:red;font-size:0.5em;">*modifiable</span><br/>Prize Exclude</th>\n'
+            + '<th scope="col">Already Prize</th>\n'
+            + '</tr>\n'
+            + '</thead>\n'
+            + '<tbody>\n';
+
+        var table_foot = '</tbody>\n' +
+            '                </table>';
+
+        $.ajax({
+            url:'${baseUrl}/society/${societyAbbr}/conference/${soConfConference.nameId}/prizeLottery/table?list=all',
+            success:function(data){
+                bootbox.confirm({
+                    title: "참석자 목록",
+                    message: table_head+data+table_foot,
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancel'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirm'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url:'${baseUrl}/society/${societyAbbr}/conference/${soConfConference.nameId}/prizeLottery/ajax',
+                                type:"POST",
+                                dataType:"json",
+                                contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+                                data: {
+                                    'prizeExclude': Array.from(prize_exclude_set)
+                                },
+                                // dataType:"json",
+                                // contentType : "application/json;charset=UTF-8",
+                                success : function(data){
+                                    $('.prizeLotteryAjax').html(data);
+                                    prize_exclude_set.clear();
+                                },
+                                complete : function(){
+                                    prize_exclude_set.clear();
+                                }
+                            })
+                        }
+                    }
+                });
+            }
+        })
+        });
  
  
-UserDetails를 implements해 사용하기 때문에 getAuthorities()를 override해준다. ArrayList에는 권한 목록이 들어가 있고 목록을 return해준다.
+### (4) webapp/WEB-INF/views/society/conference/prizeLotteryAjax.jsp
 
-### (3) java/service/loginTest/LoginTestService.java
+- gsap을 사용해서 prizeLottery의 애니메이션 효과를 만듦<br/>
+해당 코드는 처음 선물박스가 생겼다가 사라지고 30개의 네모박스가 생기는 애니메이션 js
 
+        document.querySelector(".gift").addEventListener("click", async function() {
+                await gsap.to(".gift", {
+                    duration: 0.5,
+                    opacity: 0,
+                    y: -100,
+                    stagger: 0.1,
+                    ease: "back.in"
+                });
 
-    RestTemplate restTemplate = new RestTemplate();
-
-    //Google Request Domain에다가 param들을 추가한다.
-    GoogleOAuthRequest googleOAuthRequestParam = new GoogleOAuthRequest();
-    googleOAuthRequestParam.setClientId(googleAPIkey);
-    googleOAuthRequestParam.setClientSecret(googleAPIsecret);
-    googleOAuthRequestParam.setCode(code);
-    googleOAuthRequestParam.setRedirectUri("http://localhost:8080/loginTest/google-redirect");
-    googleOAuthRequestParam.setGrantType("authorization_code");
-
-    //JWT TOKEN을 받아온다.
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://accounts.google.com/o/oauth2/token", googleOAuthRequestParam, String.class);
-    GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {});
-    String jwtToken = result.getIdToken();
-    System.out.println("jwt token : "+jwtToken);
-
-    //받아온 TOKEN의 INFO를 얻기위해 해당 url로 정보를 보낸다.
-    String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
-            .queryParam("id_token", jwtToken).toUriString();
-
-    String resultJson = restTemplate.getForObject(requestUrl, String.class);
-
-    userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>() {});
-
-
-Google의 OAuth를 사용하기 위해 Token을 받아온 후, token info를 받아온다.
-
-
-    loginTestUserDetails userTemp = new loginTestUserDetails();
-
-    userTemp.setID(userInfo.get("email"));
-    userTemp.setNAME(userInfo.get("email"));
-    userTemp.setPW(userInfo.get("sub"));
-    userTemp.setAUTHORITY("ROLE_USER");
-
-    Authentication requestAUTH = new UsernamePasswordAuthenticationToken(userTemp, null);
-    Authentication resultAUTH = am.authenticate(requestAUTH);
-
-    //Save Google jwt information in j_spring_security authentication context
-    SecurityContextHolder.getContext().setAuthentication(resultAUTH);
-        
-        
-        
- loginTestUserDetails에 정보를 저장한 후 SecurityContextHolder에 context를 저장해서 로그인 권한을 사용할 수 있게 한다.
- 
- 
+                $('.gift').css('display','none');
+                $('.boxes').css('display','');
+                gsap.from(".box", {
+                    duration: 2,
+                    scale: 0.5,
+                    opacity: 0,
+                    delay: 0.5,
+                    stagger: 0.2,
+                    ease: "elastic",
+                    force3D: true,
+                    onStart: showMessage,
+                    onStartParams: ["원하시는 카드번호를 선택해주세요."],
+                });
+            });
 
 ## 4. Reference
 
