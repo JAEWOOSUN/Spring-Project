@@ -11,15 +11,16 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 ## 1.특징
 
-- 해당 학회
+- 학회마다 다른 회원 목록으로 경품추첨 가능
 - gsap을 이용한 매끄러운 애니메이션 효과
 - **[Prize Lottery play 영상 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
-- /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="50%"> <br/>
 
+- Prize Exclude 기능(경품추첨에 제외시키는 기능) 추가
 - **[Prize Exclude 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/tSZepg_wtTY/0.jpg)](https://youtu.be/tSZepg_wtTY)
 
+- Setting 페이지에서는 
 - **[Setting Excel 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/07YB6ioiww0/0.jpg)](https://youtu.be/07YB6ioiww0)
 - **[Setting Zoom 기능 (▼ youtube video)]**<br/>
