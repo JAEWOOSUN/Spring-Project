@@ -88,6 +88,82 @@ view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리�
 
         SoConfTempMember registrant = registrants.get(randValue);
 
+- @RequestMapping(value="/table")<br/>
+'참석자 보기','당첨된 참석자 보기' Modal를 통해 보여지는 table들의 정보를 view로 보내주는 역할을 한다.<br/>
+
+
+        @RequestMapping(value="/table", produces = "application/text; charset=utf8")
+        @ResponseBody
+        public String lotteryTable(@PathVariable String societyAbbr, @ModelAttribute("society") Society society,
+                               @ModelAttribute("soConfConference") SoConfConference soConfConference,
+                               @RequestParam(value="list", required = false) String list,
+                               Model model) {
+
+        try{
+            StringBuilder sbb = new StringBuilder();
+            ArrayList<SoConfTempMember> registrants = new ArrayList<>();
+
+
+            if (soConfConference == null) {
+                return sbb.toString();
+            }
+
+            if(list != null && list.equalsIgnoreCase("all")){
+                registrants = (ArrayList) soConfTempMemberMapper.findByConfId(soConfConference.getId());
+
+                for(int i=0; i<registrants.size(); i++){
+                    SoConfTempMember curTempMember = registrants.get(i);
+
+                    //*모양으로 사용자 정보를 가린다. service에서 코드를 작성하지 않은 이유는 ajax로 가지고 오면서 시간이 너무 오래 걸린다.
+                    String encodedName = curTempMember.getName().trim().substring(0, curTempMember.getName().trim().length()-1)+"*";
+                    int pos = curTempMember.getEmail().indexOf('@');
+                    String encodedEmail = pos == -1 ? curTempMember.getEmail().substring(0,curTempMember.getEmail().length()-2)+"**"
+                            : curTempMember.getEmail().substring(0,pos-2)+"**"+ curTempMember.getEmail().substring(pos);
+                    String encodedPhone = (curTempMember.getPhone() != null && curTempMember.getPhone().trim().length() > 2) ? curTempMember.getPhone().trim().substring(0,curTempMember.getPhone().trim().length()-2)+"**" : "";
+
+                    sbb.append("<tr>\n"
+                            + "<td >"+String.valueOf(i+1)+"<span style='display:none;' class='tempId'>"+curTempMember.getId()+"</span>"+"</td>\n"
+                            + "<td >"+encodedName+"</td>\n"
+                            + "<td >"+encodedEmail+"</td>\n"
+                            + "<td >"+encodedPhone+"</td>\n"
+                            + "<td >"+(curTempMember.getPrizeExclude() == 1 ? "<span class='prize_exclude_yes'>YES</span>" : "<span class='prize_exclude_no'>NO</span>")+"</td>\n"
+                            + "<td >"+(curTempMember.getAlreadyPrize() == 1 ? "<span class='already_prize_yes'>YES</span>" : "<span class='already_prize_no'>NO</span>")+"</td>\n"
+                            + "</tr>\n\n"
+                    );
+                }
+            }
+
+            else if(list != null && list.equalsIgnoreCase("already")){
+                registrants = (ArrayList) soConfTempMemberMapper.findByConfIdAndAlreadyPrize(soConfConference.getId());
+
+                for(int i=0; i<registrants.size(); i++){
+                    SoConfTempMember curTempMember = registrants.get(i);
+
+                    //*모양으로 사용자 정보를 가린다. service에서 코드를 작성하지 않은 이유는 ajax로 가지고 오면서 시간이 너무 오래 걸린다.
+                    String encodedName = curTempMember.getName().trim().substring(0, curTempMember.getName().trim().length()-1)+"*";
+                    int pos = curTempMember.getEmail().indexOf('@');
+                    String encodedEmail = pos == -1 ? curTempMember.getEmail().substring(0,curTempMember.getEmail().length()-2)+"**"
+                            : curTempMember.getEmail().substring(0,pos-2)+"**"+ curTempMember.getEmail().substring(pos);
+                    String encodedPhone = (curTempMember.getPhone() != null && curTempMember.getPhone().trim().length() > 2) ? curTempMember.getPhone().trim().substring(0,curTempMember.getPhone().trim().length()-2)+"**" : "";
+
+                    sbb.append("<tr>\n"
+                            + "<td >"+String.valueOf(i+1)+"</td>\n"
+                            + "<td >"+encodedName+"</td>\n"
+                            + "<td >"+encodedEmail+"</td>\n"
+                            + "<td >"+encodedPhone+"</td>\n"
+                            + "<td >"+(curTempMember.getPrizeExclude() == 1 ? "<span style='color:green;'>YES</span>" : "<span style='color:red;'>NO</span>")+"</td>\n"
+                            + "<td >"+(curTempMember.getAlreadyPrize() == 1 ? "<span style='color:green;'>YES</span>" : "<span style='color:red;'>NO</span>")+"</td>\n"
+                            + "</tr>\n\n"
+                    );
+                }
+            }
+
+            return sbb.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+        }
 
 ### (2) java/society/controller/conference/soConfConferencePrizeLotteryController.java
 
