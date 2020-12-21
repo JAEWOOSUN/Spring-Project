@@ -20,22 +20,12 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 - **[Prize Exclude 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/tSZepg_wtTY/0.jpg)](https://youtu.be/tSZepg_wtTY)
 
-- Setting 페이지에서는 
+- Setting 페이지에서는 Excel과 Zoom API(JWT 사용)를 통해 참석자 목록을 가지고 올 수 있음
 - **[Setting Excel 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/07YB6ioiww0/0.jpg)](https://youtu.be/07YB6ioiww0)
 - **[Setting Zoom 기능 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/E5up_3CXFvw/0.jpg)](https://youtu.be/E5up_3CXFvw)
-- Bcrypt를 사용한 암호화 사용
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
 
-### (2) Google OAuth
-- 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin_google.png" width="50%"><br/><br/>
-- Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google api.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google_token.png" width="50%"><br/><br/>
-- **[Google User 영상 (▼ youtube video)]**<br/>
-[![Google User2](https://img.youtube.com/vi/gIIGy0rvpjg/0.jpg)](https://youtu.be/gIIGy0rvpjg)
- 
 ## 2. System Configuration Diagram
 - Login_system_architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/Login_system_architecture.png" width="100%">
 - Security authentication (ref. 2)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/security_authentication.png" width="100%">
