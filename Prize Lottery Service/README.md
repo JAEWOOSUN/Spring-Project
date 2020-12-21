@@ -37,9 +37,9 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 - @RequestMapping(value="/ajax") <br/>
 view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리한다.<br/><br/>
-[1] @RequestParam(value="idx")는 뽑힌 회원의 id number를 DB에서 제외(updateAlreadyPrize)한다.
-[2] @RequestParam(value="init")는 이미 뽑힌 회원(already_prize)를 초기화시킨다.
-[2] @RequestParam(value="prizeExclude[]")는 prize exclude를 시킬 회원 id number 리스트를 받아 exclude한다.
+[1] @RequestParam(value="idx")는 뽑힌 회원의 id number를 DB에서 제외(updateAlreadyPrize)한다.<br/>
+[2] @RequestParam(value="init")는 이미 뽑힌 회원(already_prize)를 초기화시킨다.<br/>
+[2] @RequestParam(value="prizeExclude[]")는 prize exclude를 시킬 회원 id number 리스트를 받아 exclude한다.<br/><br/>
 
         @RequestMapping(value="/ajax")
         public Object lotteryAJAX(@PathVariable String societyAbbr, @ModelAttribute("society") Society society,
@@ -83,15 +83,13 @@ view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리�
 
 만약 @RequestParam값이 없다면 prize_exclude와 already_prize값이 없는 참가자 중에 rand값을 돌려 한명의 참석자를 view로 보낸다.
 
-
-### (2) java/society/controller/conference/soConfConferencePrizeLotteryController.java
-
         ArrayList<SoConfTempMember> registrants = (ArrayList) soConfTempMemberMapper.findByConfIdAndExcludePrizeExcludeAndAlreadyPrize(soConfConference.getId());
         int randValue = societyLotteryService.getRandValue(registrants.size());
 
         SoConfTempMember registrant = registrants.get(randValue);
-        
 
+
+### (2) java/society/controller/conference/soConfConferencePrizeLotteryController.java
 
     <sec:http pattern="/loginTest/**" use-expressions="true" authentication-manager-ref="loginTestAuthManger">
         <sec:form-login login-page="/loginTest/signin" authentication-success-handler-ref="loginTestLoginHandler" authentication-failure-handler-ref="loginTestLoginFailureHandler"/>
