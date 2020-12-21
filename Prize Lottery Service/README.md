@@ -11,7 +11,8 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 ## 1.특징
 
-- gsap
+- 해당 학회
+- gsap을 이용한 매끄러운 애니메이션 효과
 - **[Prize Lottery play 영상 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="50%"> <br/>
