@@ -28,8 +28,8 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 ## 2. System Configuration Diagram
 - Prize Lottery architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/prize_lottery_structure.png" width="100%">
-- Security authentication (ref. 2)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/security_authentication.png" width="100%">
-- 구조<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/structure.png" height="100%">
+- 구조
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/structure.png" height="100%">
 ## 3. Key Code Description
 
 ### (1) resources/common/security.xml
