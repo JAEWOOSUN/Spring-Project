@@ -90,6 +90,8 @@ view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리�
 
 - @RequestMapping(value="/table")<br/>
 '참석자 보기','당첨된 참석자 보기' Modal를 통해 보여지는 table들의 정보를 view로 보내주는 역할을 한다.<br/>
+@RequestParam(value="list")에서 list=all로 보내면 모든 참석자 정보를 가지고 오고, list=already로 보내면 당첨된 참석자 목록을 가지고온다.<br/>
+Service부문에서 처리해야했지만 처리 속도로 인해 Controller에 삽입하게 되었다.<br/>
 
 
         @RequestMapping(value="/table", produces = "application/text; charset=utf8")
