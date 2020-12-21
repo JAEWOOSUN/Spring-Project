@@ -35,47 +35,48 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 
 ### (1) java/society/controller/conference/soConfConferencePrizeLotteryController.java
 
-- view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리한다.
+- @RequestMapping(value="/ajax")
+view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리한다.
 
-    @RequestMapping(value="/ajax")
-    public Object lotteryAJAX(@PathVariable String societyAbbr, @ModelAttribute("society") Society society,
-                              @ModelAttribute("soConfConference") SoConfConference soConfConference,
-                              @RequestParam(value="idx", required = false) String idx,
-                              @RequestParam(value="init", required = false) String init,
-                              HttpServletRequest request,
-                              @RequestParam(value="prizeExclude[]", required = false) List<String> prizeExclude,
-                              Model model) {
-        if (soConfConference == null) {
-            return String.format("redirect:/society/%s", societyAbbr);
+        @RequestMapping(value="/ajax")
+        public Object lotteryAJAX(@PathVariable String societyAbbr, @ModelAttribute("society") Society society,
+                                  @ModelAttribute("soConfConference") SoConfConference soConfConference,
+                                  @RequestParam(value="idx", required = false) String idx,
+                                  @RequestParam(value="init", required = false) String init,
+                                  HttpServletRequest request,
+                                  @RequestParam(value="prizeExclude[]", required = false) List<String> prizeExclude,
+                                  Model model) {
+            if (soConfConference == null) {
+                return String.format("redirect:/society/%s", societyAbbr);
+            }
+
+            if(idx != null){
+                soConfTempMemberMapper.updateAlreadyPrize(idx);
+            }
+
+            if(init != null && init.equalsIgnoreCase("on")){
+                soConfTempMemberMapper.initAlreadyPrize(soConfConference.getId());
+            }
+
+            if(prizeExclude != null){
+                for(String val : prizeExclude)
+                    soConfTempMemberMapper.updatePrizeExclude(val);
+            }
+
+            ArrayList<SoConfTempMember> registrants = (ArrayList) soConfTempMemberMapper.findByConfIdAndExcludePrizeExcludeAndAlreadyPrize(soConfConference.getId());
+            int randValue = societyLotteryService.getRandValue(registrants.size());
+
+            SoConfTempMember registrant = registrants.get(randValue);
+            String encodedPhone = (registrant.getPhone() != null && registrant.getPhone().trim().length() > 2) ? registrant.getPhone().trim().substring(0,registrant.getPhone().trim().length()-2)+"**" : "";
+            registrant.setPhone(encodedPhone);
+
+            model.addAttribute("registrant", registrant);
+            model.addAttribute("soConfConference", soConfConference);
+            model.addAttribute("soConfConferenceMainImageList", soConfConferenceService.getSoConfConferenceMainImages(soConfConference));
+            model.addAttribute("soConfConferenceDivControl", soConfConferenceService.getSoConfConferenceDivControl(soConfConference.getId()));
+            model.addAttribute("soConfConferenceContactList", soConfConferenceService.getSoConfConferenceContactList(society, soConfConference));
+            return String.format("society/conference/%s/prizeLotteryAjax", soConfConference.getViewType());
         }
-
-        if(idx != null){
-            soConfTempMemberMapper.updateAlreadyPrize(idx);
-        }
-
-        if(init != null && init.equalsIgnoreCase("on")){
-            soConfTempMemberMapper.initAlreadyPrize(soConfConference.getId());
-        }
-
-        if(prizeExclude != null){
-            for(String val : prizeExclude)
-                soConfTempMemberMapper.updatePrizeExclude(val);
-        }
-
-        ArrayList<SoConfTempMember> registrants = (ArrayList) soConfTempMemberMapper.findByConfIdAndExcludePrizeExcludeAndAlreadyPrize(soConfConference.getId());
-        int randValue = societyLotteryService.getRandValue(registrants.size());
-
-        SoConfTempMember registrant = registrants.get(randValue);
-        String encodedPhone = (registrant.getPhone() != null && registrant.getPhone().trim().length() > 2) ? registrant.getPhone().trim().substring(0,registrant.getPhone().trim().length()-2)+"**" : "";
-        registrant.setPhone(encodedPhone);
-
-        model.addAttribute("registrant", registrant);
-        model.addAttribute("soConfConference", soConfConference);
-        model.addAttribute("soConfConferenceMainImageList", soConfConferenceService.getSoConfConferenceMainImages(soConfConference));
-        model.addAttribute("soConfConferenceDivControl", soConfConferenceService.getSoConfConferenceDivControl(soConfConference.getId()));
-        model.addAttribute("soConfConferenceContactList", soConfConferenceService.getSoConfConferenceContactList(society, soConfConference));
-        return String.format("society/conference/%s/prizeLotteryAjax", soConfConference.getViewType());
-    }
 
 user-service-ref는 custom한 loginTestUserDetailsService를 사용한다.
 
