@@ -8,12 +8,12 @@ Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그
 - UserDetails, UserDetailsService interface 사용
 - /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_user.png" width="50%">
 
-- **[user and user denied (▼ youtube video)]**<br/>
+- **[user 계정 영상 / user가 admin 페이지에 들어갔을 때 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY) <br/>
 - /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="50%"> <br/>
 
-- **[Google User 영상 (▼ youtube video)]**<br/>
-[![user and user denied](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
+- **[admin 계정 영상 (▼ youtube video)]**<br/>
+[![admin](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
 - Bcrypt를 사용한 암호화 사용
 - <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
 
