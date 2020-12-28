@@ -1,36 +1,36 @@
 # Login System (j_spring_security_check + Google OAuth)
 
 Spring FrameWork의 j_spring_security_check 기능과 Google 계정으로 로그인할 수 있는 Google OAuth를 사용하여 Login System을 구현합니다.<br/>
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin.png" width="100%">
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/signin.png" width="100%">
 ## 1. 특징
 
 ### (1) j_spring-security_check
 - UserDetails, UserDetailsService interface 사용
-- /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_user.png" width="50%">
+- /loginResult에서 ROLE_USER 또는 ROLE_ADMIN authority가 없으면 -> /signin으로 직행<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/loginResult_user.png" width="50%">
 
 - **[user 계정 영상 / user가 admin 페이지에 들어갔을 때 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/mKUCU8xRItY/0.jpg)](https://youtu.be/mKUCU8xRItY) <br/>
-- /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/admin_denied.png" width="50%"> <br/>
+- /admin은 admin 계정만 접속이 가능하고 admin authority가 없으면 -> denied됨<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/loginResult_admin.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/admin_denied.png" width="50%"> <br/>
 
 - **[admin 계정 영상 (▼ youtube video)]**<br/>
 [![admin](https://img.youtube.com/vi/i-T_k176k2E/0.jpg)](https://youtu.be/i-T_k176k2E)
 - Bcrypt를 사용한 암호화 사용
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/database2.png" width="50%"><br/>
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/database2.png" width="50%"><br/>
 
 ### (2) Google OAuth
 - 사용자가 Registration 절차를 받지 않아도 Google계정으로 로그인 가능
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/signin_google.png" width="50%"><br/><br/>
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/signin_google.png" width="50%"><br/><br/>
 - Google Development에 등록 후 apikey와 apiSecret 받은 후 사용
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google api.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google_token.png" width="50%"><br/><br/>
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/google api.png" width="50%"><img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/google_token.png" width="50%"><br/><br/>
 - **[Google User 영상 (▼ youtube video)]**<br/>
 [![Google User2](https://img.youtube.com/vi/gIIGy0rvpjg/0.jpg)](https://youtu.be/gIIGy0rvpjg)
  
 ## 2. System Configuration Diagram
-- Login_system_architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/Login_system_architecture.png" width="100%">
-- Security authentication (ref. 2)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/security_authentication.png" width="100%">
-- Google OAuth Structure (ref. 3)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/google_oauth_structure.png" width="100%">
+- Login_system_architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/Login_system_architecture.png" width="100%">
+- Security authentication (ref. 2)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/security_authentication.png" width="100%">
+- Google OAuth Structure (ref. 3)<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/google_oauth_structure.png" width="100%">
 - 구조
-- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/Login-System/hierical sturcture.png" height="100%">
+- <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kissm/Login-System/hierical sturcture.png" height="100%">
 ## 3. Key Code Description
 
 ### (1) resources/common/security.xml
