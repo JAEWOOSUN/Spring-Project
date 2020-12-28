@@ -7,7 +7,7 @@ Prize Lottery Service는 Online Conference 홈페이지에 이식되어 온라�
 주목할점은 Zoom을 사용해서 논문을 발표하는 학회들이 많아졌고, 많은 학회 회원들은 Zoom을 통해 온라인학회를 참여하게 되었다는 것입니다.<br/>
 Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zoom에 참여한 참가자들을 '경품 추천' 서비스에 참석할 수 있게 합니다. <br/>
 
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/main2.png" width="100%">
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/prize_lottery/main2.png" width="100%">
 
 ## 1.특징
 
@@ -27,9 +27,9 @@ Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zo
 [![user and user denied](https://img.youtube.com/vi/E5up_3CXFvw/0.jpg)](https://youtu.be/E5up_3CXFvw)
 
 ## 2. System Configuration Diagram
-- Prize Lottery architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/prize_lottery_structure.png" width="100%">
+- Prize Lottery architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/prize_lottery/prize_lottery_structure.png" width="100%">
 - 구조
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/prize_lottery/structure.png" height="100%">
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/prize_lottery/structure.png" height="100%">
 
 ## 3. Key Code Description
 
