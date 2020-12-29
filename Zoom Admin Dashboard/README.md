@@ -50,31 +50,31 @@ method가 delete면 db에서 해당 Zoom Room을 삭제한다.<br/>
 
 
         @RequestMapping("/modify/{method}")
-    public String zoomDashboardModify(@PathVariable("method") String method,
-                                      @RequestParam(value = "zoomRoomNumber") String zoomRoomNumber,
-                                      @RequestParam(value = "password", required =false) String password,
-                                      RedirectAttributes ra){
+        public String zoomDashboardModify(@PathVariable("method") String method,
+                                          @RequestParam(value = "zoomRoomNumber") String zoomRoomNumber,
+                                          @RequestParam(value = "password", required =false) String password,
+                                          RedirectAttributes ra){
 
-        try{
-            if(method.equalsIgnoreCase("insert")){
+                try{
+                    if(method.equalsIgnoreCase("insert")){
 
-                boolean isZoomRoomExist = zoomEnterService.isZoomRoomExist(zoomRoomNumber);
+                        boolean isZoomRoomExist = zoomEnterService.isZoomRoomExist(zoomRoomNumber);
 
-                if(isZoomRoomExist)
-                    zoomRoomMapper.insert(zoomRoomNumber, password);
-                else
-                    ra.addFlashAttribute("msg", "noExist");
-            }
-            else if(method.equalsIgnoreCase("delete")){
-                zoomRoomMapper.delete(zoomRoomNumber);
-            }
-        }catch(Exception e){
-            ra.addFlashAttribute("msg", "error");
-            e.printStackTrace();
+                        if(isZoomRoomExist)
+                            zoomRoomMapper.insert(zoomRoomNumber, password);
+                        else
+                            ra.addFlashAttribute("msg", "noExist");
+                    }
+                    else if(method.equalsIgnoreCase("delete")){
+                        zoomRoomMapper.delete(zoomRoomNumber);
+                    }
+                }catch(Exception e){
+                    ra.addFlashAttribute("msg", "error");
+                    e.printStackTrace();
+                }
+
+                return "redirect:/zoom/dashboard";
         }
-
-        return "redirect:/zoom/dashboard";
-    }
 
 ### (2) java/society/service/ZoomEnterService.java
 
@@ -367,7 +367,7 @@ fetch함수로 보내서 response값과 meetingConfig값을 ZoomMtg 초기화에
 ## 4. Reference
 
 front-end : 
-- https://greensock.com/gsap/ (animation - gsap)
+- https://startbootstrap.com/theme/sb-admin-2 (admin form)
 
 zoom api : 
 - https://marketplace.zoom.us/docs/sdk/custom/web (Zoom Web SDK)
