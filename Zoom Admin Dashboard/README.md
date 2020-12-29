@@ -1,7 +1,7 @@
 # Zoom Admin Dashboard (using Zoom sdk)
 
-***코로나***로 인해 여러 학회들이 온라인 학회를 Zoom으로 개최하게 되었습니다.<br/>
-학회에서는 Session을 동시에 진행하게 되었고, 이로 인해 관리자가 Session을 한 번에 관리할 필요성을 느끼게 되었습니다.<br/>
+코로나로 인해 여러 학회들이 온라인 학회를 Zoom으로 개최하게 되었습니다.<br/>
+학회에서는 여러 Session을 동시에 진행하게 되었고, 이로 인해 관리자가 동시에 진행되는 Session을 관리할 필요성을 느끼게 되었습니다.<br/>
 하지만 여러 Zoom을 한번에 접속하는 방법은 없었고, Zoom을 확인하기 위해서는 등록 과정을 계속 물어보는 불편함을 가지게 되었습니다.<br/>
 
 Zoom Admin Dashboard는 여러 Session의 Zoom을 한 번에 볼 수 있으며, 참석자와 토론자, QnA 수를 한 눈에 볼 수 있게 해줍니다.<br/>
@@ -10,12 +10,14 @@ Zoom Admin Dashboard는 여러 Session의 Zoom을 한 번에 볼 수 있으며, 
 
 ## 1.특징
 
-- 웹에서 동시 여러 Zoom화면 시청 가능
+- 하나의 웹에서 동시 여러 Zoom화면 시청 가능
 - Zoom Client에서 사용하는 동일한 기능 (소리, 영상, 화면공유, 채팅, QnA, 참석자보기 등) 사용 가능
-- 
-- Zoom Client에서 사용하는 동일한 기능 (소리, 영상, 화면공유, 채팅, QnA, 참석자보기 등) 사용 가능
-- **[Prize Lottery play 영상 (▼ youtube video)]**<br/>
-[![user and user denied](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
+- Zoom Room 번호와 Password를 넣어서 쉽게 접속/접속해제
+- Zoom Admin Dashboard에 접속된 Zoom의 참석자와 토론자, QnA 수 집계
+- Zoom Admin Dashboard에 접속된 Zoom의 참석자와 토론자, QnA 전체 보기 (차후 업데이트)
+
+- **[Zoom Admin Dashboard 영상 (▼ youtube video)]**<br/>
+[![Zoom Admin Dashboard](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
 
 - Prize Exclude 기능(경품추첨에 제외시키는 기능) 추가
 - **[Prize Exclude 기능 (▼ youtube video)]**<br/>
