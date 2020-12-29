@@ -21,7 +21,7 @@ Zoom Admin Dashboard는 Zoom의 Web SDK를 사용하여 모든 Session의 Zoom�
 [![Zoom Admin Dashboard](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
 
 ## 2. System Configuration Diagram
-- Prize Lottery architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/zoom_dashboard_structure.png" width="100%">
+- Zoom Admin Dashboard architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/zoom_dashboard_structure.png" width="100%">
 - 구조
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/structure.png" height="100%">
 
@@ -83,40 +83,40 @@ Zoom Webinar의 토론자 리스트를 요청하는 함수이다. 토론자 권�
 response의 statusCode가 200일 때 JSONArray로 Zoom Panelist의 Info를 가지고 온다.
 
         public Object getZoomPanelists(String zoomId) throws UnsupportedOperationException{
-        try {
-            String url = zoomAPIBaseURL+"/webinars/"+zoomId+"/panelists?page_size=300";
+                try {
+                    String url = zoomAPIBaseURL+"/webinars/"+zoomId+"/panelists?page_size=300";
 
-            HttpContext context = new BasicHttpContext();
-            HttpGet getRequest = new HttpGet(url);
+                    HttpContext context = new BasicHttpContext();
+                    HttpGet getRequest = new HttpGet(url);
 
-            getRequest.setHeader("authorization",  "Bearer "+jwtToken);
-            getRequest.setHeader("content-type", "application/json");
+                    getRequest.setHeader("authorization",  "Bearer "+jwtToken);
+                    getRequest.setHeader("content-type", "application/json");
 
 
-            HttpResponse response = client.execute(getRequest, context);
+                    HttpResponse response = client.execute(getRequest, context);
 
-            if (response.getStatusLine().getStatusCode() == 200) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
 
-                ResponseHandler<String> handler = new BasicResponseHandler();
-                String body = handler.handleResponse(response);
+                        ResponseHandler<String> handler = new BasicResponseHandler();
+                        String body = handler.handleResponse(response);
 
-                JSONParser parser = new JSONParser();
-                Object bodyParser = parser.parse(body);
-                JSONObject jsonObject = (JSONObject) bodyParser;
+                        JSONParser parser = new JSONParser();
+                        Object bodyParser = parser.parse(body);
+                        JSONObject jsonObject = (JSONObject) bodyParser;
 
-                JSONArray panelists = (JSONArray) jsonObject.get("panelists");
+                        JSONArray panelists = (JSONArray) jsonObject.get("panelists");
 
-                return (Object) panelists;
-            } else {
-                client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
-                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
-            }
+                        return (Object) panelists;
+                    } else {
+                        client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+                        System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+                    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        return null;
+                return null;
         }
 
 - getZoomRoomTopicAndRegistrantsCount(List<String> roomList)<br/>
