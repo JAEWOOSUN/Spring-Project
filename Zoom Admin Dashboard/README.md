@@ -27,52 +27,20 @@ Zoom Admin Dashboard는 Zoom의 Web SDK를 사용하여 모든 Session의 Zoom�
 
 ## 3. Key Code Description
 
-### (1) java/society/controller/conference/soConfConferencePrizeLotteryController.java
+### (1) java/society/controller/zoom/ZoomEnterController.java
 
-- @RequestMapping(value="/ajax") <br/>
-view에서 보내오는 기본적인 ajax는 "/prizeLottery/ajax"에서 처리한다.<br/><br/>
-[1] @RequestParam(value="idx")는 뽑힌 회원의 id number를 DB에서 제외(updateAlreadyPrize)한다.<br/>
-[2] @RequestParam(value="init")는 이미 뽑힌 회원(already_prize)를 초기화시킨다.<br/>
-[2] @RequestParam(value="prizeExclude[]")는 prize exclude를 시킬 회원 id number 리스트를 받아 exclude한다.<br/><br/>
+- @RequestMapping("/zoomWebSDK") <br/>
+dashboard에서 
 
-        @RequestMapping(value="/ajax")
-        public Object lotteryAJAX(@PathVariable String societyAbbr, @ModelAttribute("society") Society society,
-                                  @ModelAttribute("soConfConference") SoConfConference soConfConference,
-                                  @RequestParam(value="idx", required = false) String idx,
-                                  @RequestParam(value="init", required = false) String init,
-                                  HttpServletRequest request,
-                                  @RequestParam(value="prizeExclude[]", required = false) List<String> prizeExclude,
-                                  Model model) {
-            if (soConfConference == null) {
-                return String.format("redirect:/society/%s", societyAbbr);
-            }
 
-            if(idx != null){
-                soConfTempMemberMapper.updateAlreadyPrize(idx);
-            }
+        @RequestMapping("/zoomWebSDK")
+                public String zoomwebSDK(@RequestParam(value="roomNum") String roomNum,
+                                     Model model) throws IOException {
 
-            if(init != null && init.equalsIgnoreCase("on")){
-                soConfTempMemberMapper.initAlreadyPrize(soConfConference.getId());
-            }
+                model.addAttribute("roomNum",roomNum);
+                model.addAttribute("password",zoomRoomMapper.findPassword(roomNum));
 
-            if(prizeExclude != null){
-                for(String val : prizeExclude)
-                    soConfTempMemberMapper.updatePrizeExclude(val);
-            }
-
-            ArrayList<SoConfTempMember> registrants = (ArrayList) soConfTempMemberMapper.findByConfIdAndExcludePrizeExcludeAndAlreadyPrize(soConfConference.getId());
-            int randValue = societyLotteryService.getRandValue(registrants.size());
-
-            SoConfTempMember registrant = registrants.get(randValue);
-            String encodedPhone = (registrant.getPhone() != null && registrant.getPhone().trim().length() > 2) ? registrant.getPhone().trim().substring(0,registrant.getPhone().trim().length()-2)+"**" : "";
-            registrant.setPhone(encodedPhone);
-
-            model.addAttribute("registrant", registrant);
-            model.addAttribute("soConfConference", soConfConference);
-            model.addAttribute("soConfConferenceMainImageList", soConfConferenceService.getSoConfConferenceMainImages(soConfConference));
-            model.addAttribute("soConfConferenceDivControl", soConfConferenceService.getSoConfConferenceDivControl(soConfConference.getId()));
-            model.addAttribute("soConfConferenceContactList", soConfConferenceService.getSoConfConferenceContactList(society, soConfConference));
-            return String.format("society/conference/%s/prizeLotteryAjax", soConfConference.getViewType());
+                return "zoom/zoomWebSDK";
         }
 
 만약 @RequestParam값이 없다면 prize_exclude와 already_prize값이 없는 참가자 중에 rand값을 돌려 한명의 참석자를 view로 보낸다.
