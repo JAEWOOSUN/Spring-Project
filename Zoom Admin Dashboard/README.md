@@ -248,8 +248,20 @@ apikey, meetingNumber, role 등을 사용해 SHA256의 암호화 키를 만든�
 
 ### (3) webapp/WEB-INF/views/zoom/zoomWebSDK.jsp
 
-/table로 ajax를 보내서 registrants list를 가지고 온다.<br/>
-만약 prize exclude를 Yes, No로 check하고 confirm을 누르면 다시 한번, ajax로 보내서 prize_exclude 값을 갱신한다.
+초기에 ZoomMtg와 ZoomMtg dependenices를 import 시킨다.(CDN 버전)
+
+        <!-- import ZoomMtg dependencies -->
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/react.min.js"></script>
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/react-dom.min.js"></script>
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/redux.min.js"></script>
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/redux-thunk.min.js"></script>
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/jquery.min.js"></script>
+        <script src="https://source.zoom.us/1.8.1/lib/vendor/lodash.min.js"></script>
+
+        <!-- import ZoomMtg -->
+        <script src="https://source.zoom.us/zoom-meeting-1.8.1.min.js"></script>
+
+이후 ZoomMtg CDN을 Default시킨다.
 
         $(document).ready(function () {
                 // For CDN version default
@@ -260,36 +272,97 @@ apikey, meetingNumber, role 등을 사용해 SHA256의 암호화 키를 만든�
                 getSignature(meetingConfig);
                 console.log('${baseUrl}');
         });
+        
+meetingConfig는 apiKey와 meetingNumber, userEmail, password 등 Zoom room에 접속할 때 필요한 정보들이다.<br/>
+이 정보들을 통해 접속할 때마다 계속 물어보는 Zoom의 '등록' 과정을 피할 수 있다. roomNum과 password는 Controller에서 가지고 오며, 원하면 userName과 Email도 가지고 올 수 있다.
+
+        const meetingConfig = {
+                apiKey:'DLDlXtjFQTOCzjzqaIjLuA',
+                meetingNumber: '${roomNum}',
+                leaveUrl: '${baseUrl}',
+                userName: 'admin',
+                userEmail: 'admin@gmail.com', // required
+                passWord: '${password}', // if required
+                role: 0 // 1 for host; 0 for attendee
+            };
+            
+        
+getSignature함수는 서버에서 연산해주는 generateSignature 정보를 가지고 와서 ZoomMtg의 init을 설정해준다.<br/>
+fetch함수로 보내서 response값과 meetingConfig값을 ZoomMtg 초기화에 설정한다.<br/>
+이후 ZoomMtg를 실행해 Zoom webSDK를 사용할 수 있다.
+        
+        function getSignature(meetConfig) {
+                // make a request for a signature
+                //how about use baseURL
+                fetch("${baseUrl}/zoom/dashboard/generateSignature", {
+                    method: 'POST',
+                    body: JSON.stringify(meetConfig)
+                })
+                    .then(result => result.text())
+                    .then(response => {
+                        // call the init method with meeting settings
+                        ZoomMtg.init({
+                            leaveUrl: meetConfig.leaveUrl,
+                            isSupportAV: true,
+                            // on success, call the join method
+                            success: function() {
+                                ZoomMtg.join({
+                                    // pass your signature response in the join method
+                                    signature: response,
+                                    apiKey: meetConfig.apiKey,
+                                    meetingNumber: meetConfig.meetingNumber,
+                                    userName: meetConfig.userName,
+                                    passWord: meetConfig.passWord,
+                                    userEmail: meetConfig.userEmail,
+                                    // on success, get the attendee list and verify the current user
+                                    success: function (res) {
+                                        console.log("join meeting success");
+                                        console.log("get attendee list");
+                                        ZoomMtg.getAttendeeslist({});
+                                        ZoomMtg.getCurrentUser({
+                                            success: function (res) {
+                                                console.log("success getCurrentUser", res.result.currentUser);
+                                            },
+                                        });
+                                    },
+                                    error: function (res) {
+                                        console.log(res);
+                                    },
+                                })
+                            }
+                        })
+                    })
+        }
  
  
-### (4) webapp/WEB-INF/views/society/conference/prizeLotteryAjax.jsp
+### (4) webapp/WEB-INF/views/zoom/dashboard.jsp
 
-- gsap을 사용해서 prizeLottery의 애니메이션 효과를 만듦<br/>
-해당 코드는 처음 선물박스가 생겼다가 사라지고 30개의 네모박스가 생기는 애니메이션 js
+네비게이션 바의 Zoom Room을 누르면 iframe의 ZoomWebSDK를 불러오는 방법을 사용했다.
 
-        document.querySelector(".gift").addEventListener("click", async function() {
-                await gsap.to(".gift", {
-                    duration: 0.5,
-                    opacity: 0,
-                    y: -100,
-                    stagger: 0.1,
-                    ease: "back.in"
-                });
+        $("#list-tab > a").click(function(){
+                var prevIdx = $("#list-tab > a.active").index();
+                var curIdx = $(this).index();
 
-                $('.gift').css('display','none');
-                $('.boxes').css('display','');
-                gsap.from(".box", {
-                    duration: 2,
-                    scale: 0.5,
-                    opacity: 0,
-                    delay: 0.5,
-                    stagger: 0.2,
-                    ease: "elastic",
-                    force3D: true,
-                    onStart: showMessage,
-                    onStartParams: ["원하시는 카드번호를 선택해주세요."],
-                });
-            });
+                $("#nav-tabContent iframe:eq("+prevIdx+")").attr("src", "");
+
+                var curId = $("#nav-tabContent iframe:eq("+curIdx+")").attr("Id");
+                $("#nav-tabContent iframe:eq("+curIdx+")").attr("src", "${baseUrl}/zoom/zoomWebSDK?roomNum="+curId);
+
+        });
+
+
+/zoom/getCnt에서 참석자 수, 토론자 수, qna 수를 가지고 오며, 3초(3000)마다 갱신해서 가지고 온다.
+
+        change_value = setInterval(function() {
+                $.ajax({
+                    url : "${baseUrl}/zoom/getCnt",
+                    success : function(data){
+                        $.each(data, function(key, value){
+                            $("#"+key).html(value);
+                        })
+                    }
+                })
+        }, 3000);
 
 ## 4. Reference
 
@@ -297,4 +370,6 @@ front-end :
 - https://greensock.com/gsap/ (animation - gsap)
 
 zoom api : 
-- https://marketplace.zoom.us/docs/api-reference/zoom-api/webinars/webinarregistrants (Add Zoom Registrants)
+- https://marketplace.zoom.us/docs/sdk/custom/web (Zoom Web SDK)
+- https://marketplace.zoom.us/docs/api-reference/zoom-api/webinars (Zoom webinar api-reference)
+
