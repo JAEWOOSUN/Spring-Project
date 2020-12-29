@@ -18,7 +18,7 @@ Zoom Admin Dashboard는 Zoom의 Web SDK를 사용하여 모든 Session의 Zoom�
 - Zoom Admin Dashboard에 접속된 Zoom의 참석자와 토론자, QnA 전체 보기 (차후 업데이트)
 
 - **[Zoom Admin Dashboard 영상 (▼ youtube video)]**<br/>
-[![Zoom Admin Dashboard](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
+[![Zoom Admin Dashboard](https://img.youtube.com/vi/_mOEHChbS_A/0.jpg)](https://youtu.be/_mOEHChbS_A) <br/>
 
 ## 2. System Configuration Diagram
 - Zoom Admin Dashboard architecture<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/zoom_dashboard_structure.png" width="100%">
