@@ -4,7 +4,7 @@
 학회에서는 여러 Session을 동시에 진행하게 되었고, 이로 인해 학회 관리자가 동시에 진행되는 Session들을 한 번에 관리할 필요성을 느끼게 되었습니다.<br/>
 하지만 Zoom Client에서 여러 Zoom Room에 동시 접속하는 것은 불가능했고, 접속할 때마다 묻는 등록 과정을 거쳐야하는 불편함이 있었습니다.<br/>
 
-Zoom Admin Dashboard는 Zoom의 Web SDK를 사용하여 모든 Session의 Zoom을 한 눈에 볼 수 있게 제작되었으며,<br/>
+Zoom Admin Dashboard는 Zoom의 Web SDK를 사용하여 모든 Session의 Zoom을 한 눈에 볼 수 있게 제작되었으며,
 참석자와 토론자, QnA 수를 한 눈에 볼 수 있게 해줍니다.<br/>
 
 <img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/main_image.png" width="100%">
