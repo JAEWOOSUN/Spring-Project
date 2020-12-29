@@ -1,18 +1,19 @@
-# Prize Lottery Service (using Zoom API and Excel)
+# Zoom Admin Dashboard (using Zoom sdk)
 
-***코로나***로 인해 여러 학회들이 온라인 학회를 개최하게 되었습니다.<br/>
-하지만 온라인이라는 한정된 공간으로 인해 행사 많은 부분에 제약이 걸리게 되었고 특히, 폐회식에서 '경품 추천'을 하지못하는 학회들이 많아지게 되었습니다.<br/>
-Prize Lottery Service는 Online Conference 홈페이지에 이식되어 온라인에서도 경품추천을 재밌게 즐길수 있으며, 여러 기능들을 통해 사용자가 Service를 쉽게 이용할 수 있습니다.<br/> 
+***코로나***로 인해 여러 학회들이 온라인 학회를 Zoom으로 개최하게 되었습니다.<br/>
+학회에서는 Session을 동시에 진행하게 되었고, 이로 인해 관리자가 Session을 한 번에 관리할 필요성을 느끼게 되었습니다.<br/>
+하지만 여러 Zoom을 한번에 접속하는 방법은 없었고, Zoom을 확인하기 위해서는 등록 과정을 계속 물어보는 불편함을 가지게 되었습니다.<br/>
 
-주목할점은 Zoom을 사용해서 논문을 발표하는 학회들이 많아졌고, 많은 학회 회원들은 Zoom을 통해 온라인학회를 참여하게 되었다는 것입니다.<br/>
-Prize Lottery Service는 Zoom Registrants Api를 사용하여 실시간으로 Zoom에 참여한 참가자들을 '경품 추천' 서비스에 참석할 수 있게 합니다. <br/>
+Zoom Admin Dashboard는 여러 Session의 Zoom을 한 번에 볼 수 있으며, 참석자와 토론자, QnA 수를 한 눈에 볼 수 있게 해줍니다.<br/>
 
-<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/prize_lottery/main2.png" width="100%">
+<img src="https://manuscriptlink-society-file.s3-ap-northeast-1.amazonaws.com/kist/zoom_dashboard/main_image.png" width="100%">
 
 ## 1.특징
 
-- 학회마다 다른 회원 목록으로 경품추첨 가능
-- gsap을 이용한 매끄러운 애니메이션 효과
+- 웹에서 동시 여러 Zoom화면 시청 가능
+- Zoom Client에서 사용하는 동일한 기능 (소리, 영상, 화면공유, 채팅, QnA, 참석자보기 등) 사용 가능
+- 
+- Zoom Client에서 사용하는 동일한 기능 (소리, 영상, 화면공유, 채팅, QnA, 참석자보기 등) 사용 가능
 - **[Prize Lottery play 영상 (▼ youtube video)]**<br/>
 [![user and user denied](https://img.youtube.com/vi/gJ6-KSiiCCA/0.jpg)](https://youtu.be/gJ6-KSiiCCA) <br/>
 
