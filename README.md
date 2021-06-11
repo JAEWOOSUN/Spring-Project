@@ -1,5 +1,5 @@
 # Spring-Project
-Make spring project from 2020.08 to 2020.12.
+Spring project from 2020.08 to 2020.12.
 
 해당 폴더를 클릭하시면 자세한 Readme를 보실 수 있습니다.
 
